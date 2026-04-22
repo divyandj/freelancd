@@ -19,35 +19,60 @@ function Navbar() {
   return (
     <nav className={cn(
       "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 py-4",
-      isScrolled ? "bg-white/90 backdrop-blur-md shadow-md py-3" : "bg-transparent"
+      isScrolled ? "bg-white/95 backdrop-blur-md shadow-md py-3" : "bg-transparent"
     )}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-navy flex items-center justify-center rounded-sm">
-            <span className="text-gold font-serif font-bold text-xl">NI</span>
+        <div className="flex items-center gap-3">
+          <div className={cn(
+            "w-10 h-10 flex items-center justify-center rounded-sm transition-colors duration-300",
+            isScrolled ? "bg-navy text-gold" : "bg-white text-navy"
+          )}>
+            <span className="font-serif font-bold text-xl">NI</span>
           </div>
           <div className="flex flex-col">
-            <span className="font-serif font-extrabold text-navy leading-none text-xl tracking-tight">NAIF</span>
+            <span className={cn(
+              "font-serif font-extrabold leading-none text-xl tracking-tight transition-colors duration-300",
+              isScrolled ? "text-navy" : "text-white"
+            )}>NAIF</span>
             <span className="font-sans text-[10px] text-gold font-semibold tracking-[0.2em] uppercase leading-none mt-1">International</span>
           </div>
         </div>
 
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium uppercase tracking-wider">
-          <a href="#home" className="hover:text-gold transition-colors">Home</a>
-          <a href="#about" className="hover:text-gold transition-colors">About</a>
-          <a href="#industries" className="hover:text-gold transition-colors">Industries</a>
-          <a href="#employers" className="hover:text-gold transition-colors">Employers</a>
-          <a href="#jobseekers" className="hover:text-gold transition-colors">Apply</a>
-          <a href="#contact" className="hover:text-gold transition-colors">Contact</a>
+        <div className={cn(
+          "hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-[0.15em] transition-colors duration-300",
+          isScrolled ? "text-navy" : "text-white/90"
+        )}>
+          {[
+            { name: "Home", href: "#home" },
+            { name: "About", href: "#about" },
+            { name: "Industries", href: "#industries" },
+            { name: "Employers", href: "#employers" },
+            { name: "Apply", href: "#jobseekers" },
+            { name: "Contact", href: "#contact" },
+          ].map((link) => (
+            <a 
+              key={link.name} 
+              href={link.href} 
+              className="relative py-1 group"
+            >
+              <span className="relative z-10 group-hover:text-gold transition-colors duration-300">{link.name}</span>
+              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gold origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out" />
+            </a>
+          ))}
         </div>
 
         <div className="hidden md:flex items-center gap-4">
-          <a href="#jobseekers" className="bg-navy text-white px-6 py-2 rounded-none hover:bg-navy/90 transition-all text-xs font-bold uppercase tracking-widest">
+          <a href="#jobseekers" className={cn(
+            "px-6 py-2.5 rounded-none transition-all text-xs font-bold uppercase tracking-widest border border-transparent",
+            isScrolled 
+              ? "bg-navy text-white hover:bg-gold hover:text-navy hover:shadow-lg" 
+              : "bg-white text-navy hover:bg-gold hover:text-navy hover:shadow-lg"
+          )}>
             Apply Now
           </a>
         </div>
 
-        <button className="md:hidden text-navy" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        <button className={cn("md:hidden transition-colors", isScrolled ? "text-navy" : "text-white")} onClick={() => setIsMenuOpen(!isMenuOpen)}>
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
@@ -57,14 +82,14 @@ function Navbar() {
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="absolute top-full left-0 right-0 bg-white shadow-xl p-6 flex flex-col gap-4 md:hidden"
+          className="absolute top-full left-0 right-0 bg-white shadow-xl p-6 flex flex-col gap-4 md:hidden border-t border-gray-100"
         >
-          <a href="#home" className="text-lg font-serif" onClick={() => setIsMenuOpen(false)}>Home</a>
-          <a href="#about" className="text-lg font-serif" onClick={() => setIsMenuOpen(false)}>About</a>
-          <a href="#industries" className="text-lg font-serif" onClick={() => setIsMenuOpen(false)}>Industries</a>
-          <a href="#employers" className="text-lg font-serif" onClick={() => setIsMenuOpen(false)}>Employers</a>
-          <a href="#jobseekers" className="text-lg font-serif" onClick={() => setIsMenuOpen(false)}>Apply</a>
-          <a href="#contact" className="text-lg font-serif" onClick={() => setIsMenuOpen(false)}>Contact</a>
+          <a href="#home" className="text-lg font-serif text-navy hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Home</a>
+          <a href="#about" className="text-lg font-serif text-navy hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>About</a>
+          <a href="#industries" className="text-lg font-serif text-navy hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Industries</a>
+          <a href="#employers" className="text-lg font-serif text-navy hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Employers</a>
+          <a href="#jobseekers" className="text-lg font-serif text-navy hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Apply</a>
+          <a href="#contact" className="text-lg font-serif text-navy hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Contact</a>
         </motion.div>
       )}
     </nav>
